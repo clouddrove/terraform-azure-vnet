@@ -99,14 +99,21 @@ module "virtual-network" {
 | dns\_servers | The DNS servers to be used with vNet. | `list(string)` | `[]` | no |
 | enable | Flag to control the module creation | `bool` | `true` | no |
 | enable\_ddos\_pp | Flag to control the resource creation | `bool` | `false` | no |
+| enable\_flow\_logs | Flag to control creation of flow logs for nsg. | `bool` | `false` | no |
+| enable\_network\_watcher | Flag to control creation of network watcher. | `bool` | `false` | no |
+| enable\_traffic\_analytics | Flag to control creation of traffic analytics. | `bool` | `true` | no |
 | environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
 | label\_order | Label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
 | location | The location/region where the virtual network is created. Changing this forces a new resource to be created. | `string` | `""` | no |
 | managedby | ManagedBy, eg 'CloudDrove'. | `string` | `"hello@clouddrove.com"` | no |
 | name | Name  (e.g. `app` or `cluster`). | `string` | `""` | no |
+| network\_security\_group\_id | Id of network security group for which flow are to be calculated | `string` | `null` | no |
 | repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-azure-virtual-network"` | no |
 | resource\_group\_name | The name of the resource group in which to create the virtual network. Changing this forces a new resource to be created. | `string` | `""` | no |
+| storage\_account\_id | Id of storage account. | `string` | `null` | no |
 | tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`). | `map(any)` | `{}` | no |
+| workspace\_id | Log analytics workspace id | `string` | `null` | no |
+| workspace\_resource\_id | Resource id of workspace | `string` | `null` | no |
 
 ## Outputs
 
