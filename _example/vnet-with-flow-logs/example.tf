@@ -138,17 +138,20 @@ module "subnet" {
 module "vnet" {
   source = "../../"
 
-  name                      = "app"
-  environment               = "test"
-  label_order               = ["name", "environment"]
-  resource_group_name       = module.resource_group.resource_group_name
-  location                  = module.resource_group.resource_group_location
-  address_space             = "10.0.0.0/16"
-  enable_ddos_pp            = false
+  name                = "app"
+  environment         = "test"
+  label_order         = ["name", "environment"]
+  resource_group_name = module.resource_group.resource_group_name
+  location            = module.resource_group.resource_group_location
+  address_space       = "10.0.0.0/16"
+  enable_ddos_pp      = false
+
+  ## For enabling network flow logs for vnet.
+  enable_flow_logs          = true
   enable_network_watcher    = true
+  enable_traffic_analytics  = true
   network_security_group_id = module.security_group.id
   storage_account_id        = module.storage.default_storage_account_id
   workspace_id              = module.log-analytics.workspace_customer_id
   workspace_resource_id     = module.log-analytics.workspace_id
-  enable_flow_logs          = true
 }
