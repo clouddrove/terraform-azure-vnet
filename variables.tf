@@ -134,8 +134,8 @@ variable "enable_flow_logs" {
   description = "Flag to control creation of flow logs for nsg."
 }
 
-variable "enable_traffic_analytics"{
-  type = bool
-  default = true
+variable "enable_traffic_analytics" {
+  type        = bool
+  default     = true
   description = "Flag to control creation of traffic analytics."
 }
