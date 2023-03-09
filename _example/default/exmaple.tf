@@ -13,7 +13,7 @@ module "resource_group" {
 }
 
 module "vnet" {
-  source = "../"
+  source = "../../"
 
   name                = "app"
   environment         = "test"
