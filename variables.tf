@@ -98,3 +98,33 @@ variable "enable_ddos_pp" {
   description = "Flag to control the resource creation"
 }
 
+variable "enable_network_watcher" {
+  type        = bool
+  default     = false
+  description = "Flag to control creation of network watcher."
+}
+
+variable "network_security_group_id" {
+  type        = string
+  default     = null
+  description = "Id of network security group for which flow are to be calculated"
+}
+
+variable "storage_account_id" {
+  type        = string
+  default     = null
+  description = "Id of storage account."
+}
+
+variable "workspace_id" {
+  type        = string
+  default     = null
+  description = "Log analytics workspace id"
+}
+
+variable "workspace_resource_id" {
+  type        = string
+  default     = null
+  description = "Resource id of workspace"
+}
+
