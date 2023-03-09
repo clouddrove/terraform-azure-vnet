@@ -128,3 +128,8 @@ variable "workspace_resource_id" {
   description = "Resource id of workspace"
 }
 
+variable "enable_flow_logs" {
+  type        = bool
+  default     = false
+  description = "Flag to control creation of flow logs for nsg."
+}

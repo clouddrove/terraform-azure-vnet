@@ -48,7 +48,7 @@ resource "azurerm_network_watcher" "test" {
 
 
 resource "azurerm_network_watcher_flow_log" "test" {
-  count                = var.enable_network_watcher ? 1 : 0
+  count                = var.enable_flow_logs ? 1 : 0
   network_watcher_name = join("", azurerm_network_watcher.test.*.name)
   resource_group_name  = var.resource_group_name
   name                 = format("%s-flow_logs", module.labels.id)

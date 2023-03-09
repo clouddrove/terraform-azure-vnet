@@ -150,4 +150,5 @@ module "vnet" {
   storage_account_id        = module.storage.default_storage_account_id
   workspace_id              = module.log-analytics.workspace_customer_id
   workspace_resource_id     = module.log-analytics.workspace_id
+  enable_flow_logs          = true
 }
