@@ -15,12 +15,15 @@ module "labels" {
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  count               = var.enable == true ? 1 : 0
-  name                = format("%s-vnet", module.labels.id)
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  address_space       = length(var.address_spaces) == 0 ? [var.address_space] : var.address_spaces
-  dns_servers         = var.dns_servers
+  count                   = var.enable == true ? 1 : 0
+  name                    = format("%s-vnet", module.labels.id)
+  resource_group_name     = var.resource_group_name
+  location                = var.location
+  address_space           = length(var.address_spaces) == 0 ? [var.address_space] : var.address_spaces
+  dns_servers             = var.dns_servers
+  bgp_community           = var.bgp_community
+  edge_zone               = var.edge_zone
+  flow_timeout_in_minutes = var.flow_timeout_in_minutes
   dynamic "ddos_protection_plan" {
     for_each = local.ddos_pp_id != "" ? ["ddos_protection_plan"] : []
     content {

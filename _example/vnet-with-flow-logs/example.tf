@@ -13,8 +13,8 @@ module "resource_group" {
 }
 
 module "storage" {
-  depends_on                = [module.resource_group]
   source                    = "clouddrove/storage/azure"
+  version                   = "1.0.6"
   default_enabled           = true
   resource_group_name       = module.resource_group.resource_group_name
   location                  = module.resource_group.resource_group_location
@@ -25,6 +25,7 @@ module "storage" {
   enable_https_traffic_only = true
   is_hns_enabled            = true
   sftp_enabled              = true
+  versioning_enabled        = false
 
   network_rules = [
     {
@@ -36,7 +37,7 @@ module "storage" {
 
 
   ##   Storage Account Threat Protection
-  enable_advanced_threat_protection = true
+  enable_advanced_threat_protection = false
 
   ##   Storage Container
   containers_list = [
@@ -54,6 +55,7 @@ module "storage" {
   ## Storage Queues
   queues = ["queue1"]
 
+  management_policy_enable = true
   management_policy = [
     {
       prefix_match               = ["app-test/folder_path"]
@@ -71,6 +73,8 @@ module "storage" {
 
 }
 
+
+
 module "log-analytics" {
   source                           = "clouddrove/log-analytics/azure"
   name                             = "app"
@@ -80,6 +84,50 @@ module "log-analytics" {
   log_analytics_workspace_sku      = "PerGB2018"
   resource_group_name              = module.resource_group.resource_group_name
   log_analytics_workspace_location = module.resource_group.resource_group_location
+}
+
+module "vnet" {
+  source = "../../"
+
+  name                = "app"
+  environment         = "test"
+  label_order         = ["name", "environment"]
+  resource_group_name = module.resource_group.resource_group_name
+  location            = module.resource_group.resource_group_location
+  address_space       = "10.0.0.0/16"
+  ## For enabling network flow logs for vnet.
+  enable_flow_logs          = true
+  enable_network_watcher    = true
+  enable_traffic_analytics  = true
+  network_security_group_id = module.security_group.id
+  storage_account_id        = module.storage.default_storage_account_id
+  workspace_id              = module.log-analytics.workspace_customer_id
+  workspace_resource_id     = module.log-analytics.workspace_id
+}
+
+module "subnet" {
+  source               = "clouddrove/subnet/azure"
+  name                 = "app"
+  environment          = "test"
+  label_order          = ["name", "environment"]
+  resource_group_name  = module.resource_group.resource_group_name
+  location             = module.resource_group.resource_group_location
+  virtual_network_name = join("", module.vnet.vnet_name)
+
+  #subnet
+  default_name_subnet = true
+  subnet_names        = ["subnet1", "subnet2"]
+  subnet_prefixes     = ["10.0.1.0/24", "10.0.2.0/24"]
+
+  # route_table
+  enable_route_table = false
+  routes = [
+    {
+      name           = "rt-test"
+      address_prefix = "0.0.0.0/0"
+      next_hop_type  = "Internet"
+    }
+  ]
 }
 
 module "security_group" {
@@ -108,50 +156,4 @@ module "security_group" {
       description                = "ssh allowed port"
   }]
 
-}
-
-module "subnet" {
-  source               = "clouddrove/subnet/azure"
-  name                 = "app"
-  environment          = "test"
-  label_order          = ["name", "environment"]
-  resource_group_name  = module.resource_group.resource_group_name
-  location             = module.resource_group.resource_group_location
-  virtual_network_name = join("", module.vnet.vnet_name)
-
-  #subnet
-  default_name_subnet = true
-  subnet_names        = ["subnet1", "subnet2"]
-  subnet_prefixes     = ["10.0.1.0/24", "10.0.2.0/24"]
-
-  # route_table
-  enable_route_table = false
-  routes = [
-    {
-      name           = "rt-test"
-      address_prefix = "0.0.0.0/0"
-      next_hop_type  = "Internet"
-    }
-  ]
-}
-
-module "vnet" {
-  source = "../../"
-
-  name                = "app"
-  environment         = "test"
-  label_order         = ["name", "environment"]
-  resource_group_name = module.resource_group.resource_group_name
-  location            = module.resource_group.resource_group_location
-  address_space       = "10.0.0.0/16"
-  enable_ddos_pp      = false
-
-  ## For enabling network flow logs for vnet.
-  enable_flow_logs          = true
-  enable_network_watcher    = true
-  enable_traffic_analytics  = true
-  network_security_group_id = module.security_group.id
-  storage_account_id        = module.storage.default_storage_account_id
-  workspace_id              = module.log-analytics.workspace_customer_id
-  workspace_resource_id     = module.log-analytics.workspace_id
 }
