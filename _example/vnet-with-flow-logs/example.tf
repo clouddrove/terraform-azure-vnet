@@ -77,6 +77,7 @@ module "storage" {
 
 module "log-analytics" {
   source                           = "clouddrove/log-analytics/azure"
+  version                          = "1.0.0"
   name                             = "app"
   environment                      = "test"
   label_order                      = ["name", "environment"]
@@ -107,6 +108,7 @@ module "vnet" {
 
 module "subnet" {
   source               = "clouddrove/subnet/azure"
+  version              = "1.0.1"
   name                 = "app"
   environment          = "test"
   label_order          = ["name", "environment"]
@@ -132,7 +134,7 @@ module "subnet" {
 
 module "security_group" {
   source  = "clouddrove/network-security-group/azure"
-  version = "1.0.0"
+  version = "1.0.2"
   ## Tags
   name        = "app"
   environment = "test"
