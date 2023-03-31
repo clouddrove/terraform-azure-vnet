@@ -79,7 +79,26 @@ module "virtual-network" {
  resource_group_name = module.resource_group.resource_group_name
  location            = module.resource_group.resource_group_location
  address_space       = "10.0.0.0/16"
- enable_ddos_pp      = false
+ }
+  ```
+##vnet with flow log
+```hcl
+module "virtual-network" {
+ source              = "clouddrove/vnet/azure"
+ name                = "app"
+ environment         = "test"
+ label_order         = ["name", "environment"]
+ resource_group_name = module.resource_group.resource_group_name
+ location            = module.resource_group.resource_group_location
+ address_space       = "10.0.0.0/16"
+ ## For enabling network flow logs for vnet.
+ enable_flow_logs          = true
+ enable_network_watcher    = true
+ enable_traffic_analytics  = true
+ network_security_group_id = module.security_group.id
+ storage_account_id        = module.storage.default_storage_account_id
+ workspace_id              = module.log-analytics.workspace_customer_id
+ workspace_resource_id     = module.log-analytics.workspace_id
  }
   ```
 
@@ -95,14 +114,17 @@ module "virtual-network" {
 | address\_space | The address space that is used by the virtual network. | `string` | `""` | no |
 | address\_spaces | The list of the address spaces that is used by the virtual network. | `list(string)` | `[]` | no |
 | attributes | Additional attributes (e.g. `1`). | `list(any)` | `[]` | no |
+| bgp\_community | The BGP community attribute in format <as-number>:<community-value>. | `number` | `null` | no |
 | delimiter | Delimiter to be used between `organization`, `environment`, `name` and `attributes`. | `string` | `"-"` | no |
 | dns\_servers | The DNS servers to be used with vNet. | `list(string)` | `[]` | no |
+| edge\_zone | (Optional) Specifies the Edge Zone within the Azure Region where this Virtual Network should exist. Changing this forces a new Virtual Network to be created. | `string` | `null` | no |
 | enable | Flag to control the module creation | `bool` | `true` | no |
 | enable\_ddos\_pp | Flag to control the resource creation | `bool` | `false` | no |
 | enable\_flow\_logs | Flag to control creation of flow logs for nsg. | `bool` | `false` | no |
 | enable\_network\_watcher | Flag to control creation of network watcher. | `bool` | `false` | no |
 | enable\_traffic\_analytics | Flag to control creation of traffic analytics. | `bool` | `true` | no |
 | environment | Environment (e.g. `prod`, `dev`, `staging`). | `string` | `""` | no |
+| flow\_timeout\_in\_minutes | The flow timeout in minutes for the Virtual Network, which is used to enable connection tracking for intra-VM flows. Possible values are between 4 and 30 minutes. | `number` | `10` | no |
 | label\_order | Label order, e.g. `name`,`application`. | `list(any)` | `[]` | no |
 | location | The location/region where the virtual network is created. Changing this forces a new resource to be created. | `string` | `""` | no |
 | managedby | ManagedBy, eg 'CloudDrove'. | `string` | `"hello@clouddrove.com"` | no |
@@ -119,6 +141,8 @@ module "virtual-network" {
 
 | Name | Description |
 |------|-------------|
+| ddos\_protection\_plan\_id | The ID of the DDoS Protection Plan |
+| network\_watcher\_id | The ID of the Network Watcher. |
 | vnet\_address\_space | The address space of the newly created vNet |
 | vnet\_guid | The GUID of the virtual network. |
 | vnet\_id | The id of the newly created vNet |
