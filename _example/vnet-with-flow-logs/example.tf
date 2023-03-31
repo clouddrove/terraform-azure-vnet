@@ -13,8 +13,8 @@ module "resource_group" {
 }
 
 module "storage" {
-  depends_on                = [module.resource_group]
   source                    = "clouddrove/storage/azure"
+  version                   = "1.0.6"
   default_enabled           = true
   resource_group_name       = module.resource_group.resource_group_name
   location                  = module.resource_group.resource_group_location
@@ -25,6 +25,7 @@ module "storage" {
   enable_https_traffic_only = true
   is_hns_enabled            = true
   sftp_enabled              = true
+  versioning_enabled        = false
 
   network_rules = [
     {
@@ -36,7 +37,7 @@ module "storage" {
 
 
   ##   Storage Account Threat Protection
-  enable_advanced_threat_protection = true
+  enable_advanced_threat_protection = false
 
   ##   Storage Container
   containers_list = [
@@ -54,6 +55,7 @@ module "storage" {
   ## Storage Queues
   queues = ["queue1"]
 
+  management_policy_enable = true
   management_policy = [
     {
       prefix_match               = ["app-test/folder_path"]
@@ -71,8 +73,11 @@ module "storage" {
 
 }
 
+
+
 module "log-analytics" {
   source                           = "clouddrove/log-analytics/azure"
+  version                          = "1.0.0"
   name                             = "app"
   environment                      = "test"
   label_order                      = ["name", "environment"]
@@ -82,36 +87,28 @@ module "log-analytics" {
   log_analytics_workspace_location = module.resource_group.resource_group_location
 }
 
-module "security_group" {
-  source  = "clouddrove/network-security-group/azure"
-  version = "1.0.0"
-  ## Tags
-  name        = "app"
-  environment = "test"
-  label_order = ["name", "environment"]
+module "vnet" {
+  source = "../../"
 
-  ## Security Group
-  resource_group_name     = module.resource_group.resource_group_name
-  resource_group_location = module.resource_group.resource_group_location
-  subnet_ids              = module.subnet.default_subnet_id
-  ##Security Group rule for Custom port.
-  inbound_rules = [
-    {
-      name                       = "ssh"
-      priority                   = 101
-      access                     = "Allow"
-      protocol                   = "Tcp"
-      source_address_prefix      = "0.0.0.0/0"
-      source_port_range          = "*"
-      destination_address_prefix = "0.0.0.0/0"
-      destination_port_range     = "22"
-      description                = "ssh allowed port"
-  }]
-
+  name                = "app"
+  environment         = "test"
+  label_order         = ["name", "environment"]
+  resource_group_name = module.resource_group.resource_group_name
+  location            = module.resource_group.resource_group_location
+  address_space       = "10.0.0.0/16"
+  ## For enabling network flow logs for vnet.
+  enable_flow_logs          = true
+  enable_network_watcher    = true
+  enable_traffic_analytics  = true
+  network_security_group_id = module.security_group.id
+  storage_account_id        = module.storage.default_storage_account_id
+  workspace_id              = module.log-analytics.workspace_customer_id
+  workspace_resource_id     = module.log-analytics.workspace_id
 }
 
 module "subnet" {
   source               = "clouddrove/subnet/azure"
+  version              = "1.0.1"
   name                 = "app"
   environment          = "test"
   label_order          = ["name", "environment"]
@@ -135,23 +132,30 @@ module "subnet" {
   ]
 }
 
-module "vnet" {
-  source = "../../"
+module "security_group" {
+  source  = "clouddrove/network-security-group/azure"
+  version = "1.0.2"
+  ## Tags
+  name        = "app"
+  environment = "test"
+  label_order = ["name", "environment"]
 
-  name                = "app"
-  environment         = "test"
-  label_order         = ["name", "environment"]
-  resource_group_name = module.resource_group.resource_group_name
-  location            = module.resource_group.resource_group_location
-  address_space       = "10.0.0.0/16"
-  enable_ddos_pp      = false
+  ## Security Group
+  resource_group_name     = module.resource_group.resource_group_name
+  resource_group_location = module.resource_group.resource_group_location
+  subnet_ids              = module.subnet.default_subnet_id
+  ##Security Group rule for Custom port.
+  inbound_rules = [
+    {
+      name                       = "ssh"
+      priority                   = 101
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_address_prefix      = "0.0.0.0/0"
+      source_port_range          = "*"
+      destination_address_prefix = "0.0.0.0/0"
+      destination_port_range     = "22"
+      description                = "ssh allowed port"
+  }]
 
-  ## For enabling network flow logs for vnet.
-  enable_flow_logs          = true
-  enable_network_watcher    = true
-  enable_traffic_analytics  = true
-  network_security_group_id = module.security_group.id
-  storage_account_id        = module.storage.default_storage_account_id
-  workspace_id              = module.log-analytics.workspace_customer_id
-  workspace_resource_id     = module.log-analytics.workspace_id
 }

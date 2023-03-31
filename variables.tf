@@ -83,6 +83,21 @@ variable "address_spaces" {
   default     = []
   description = "The list of the address spaces that is used by the virtual network."
 }
+variable "bgp_community" {
+  type        = number
+  default     = null
+  description = "The BGP community attribute in format <as-number>:<community-value>."
+}
+variable "edge_zone" {
+  type        = string
+  default     = null
+  description = " (Optional) Specifies the Edge Zone within the Azure Region where this Virtual Network should exist. Changing this forces a new Virtual Network to be created."
+}
+variable "flow_timeout_in_minutes" {
+  type        = number
+  default     = 10
+  description = "The flow timeout in minutes for the Virtual Network, which is used to enable connection tracking for intra-VM flows. Possible values are between 4 and 30 minutes."
+}
 
 # If no values specified, this defaults to Azure DNS
 variable "dns_servers" {

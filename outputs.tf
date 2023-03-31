@@ -27,3 +27,12 @@ output "vnet_rg_name" {
   description = "The name of the resource group in which to create the virtual network. Changing this forces a new resource to be created"
   value       = azurerm_virtual_network.vnet.*.resource_group_name
 }
+
+output "ddos_protection_plan_id" {
+  value       = join("", azurerm_network_ddos_protection_plan.example.*.id)
+  description = "The ID of the DDoS Protection Plan"
+}
+output "network_watcher_id" {
+  value       = join("", azurerm_network_watcher.test.*.id)
+  description = "The ID of the Network Watcher."
+}
