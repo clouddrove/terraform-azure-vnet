@@ -77,7 +77,7 @@ module "storage" {
 
 module "log-analytics" {
   source                           = "clouddrove/log-analytics/azure"
-  version                          = "1.0.0"
+  version                          = "1.0.1"
   name                             = "app"
   environment                      = "test"
   label_order                      = ["name", "environment"]
@@ -106,9 +106,11 @@ module "vnet" {
   workspace_resource_id     = module.log-analytics.workspace_id
 }
 
+###subnet
 module "subnet" {
-  source               = "clouddrove/subnet/azure"
-  version              = "1.0.1"
+  source  = "clouddrove/subnet/azure"
+  version = "1.0.2"
+
   name                 = "app"
   environment          = "test"
   label_order          = ["name", "environment"]
@@ -117,19 +119,9 @@ module "subnet" {
   virtual_network_name = join("", module.vnet.vnet_name)
 
   #subnet
-  default_name_subnet = true
-  subnet_names        = ["subnet1", "subnet2"]
-  subnet_prefixes     = ["10.0.1.0/24", "10.0.2.0/24"]
+  subnet_names    = ["subnet1"]
+  subnet_prefixes = ["10.0.1.0/24"]
 
-  # route_table
-  enable_route_table = false
-  routes = [
-    {
-      name           = "rt-test"
-      address_prefix = "0.0.0.0/0"
-      next_hop_type  = "Internet"
-    }
-  ]
 }
 
 module "security_group" {

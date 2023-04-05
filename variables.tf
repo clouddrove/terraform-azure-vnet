@@ -154,3 +154,13 @@ variable "enable_traffic_analytics" {
   default     = true
   description = "Flag to control creation of traffic analytics."
 }
+variable "retention_policy_enabled" {
+  type        = bool
+  default     = true
+  description = "Boolean flag to enable/disable retention."
+}
+variable "retention_policy_days" {
+  type        = number
+  default     = 30
+  description = "The number of days to retain flow log records."
+}
