@@ -61,8 +61,8 @@ resource "azurerm_network_watcher_flow_log" "test" {
   enabled                   = true
 
   retention_policy {
-    enabled = true
-    days    = 7
+    enabled = var.retention_policy_enabled
+    days    = var.retention_policy_days
   }
 
   traffic_analytics {
