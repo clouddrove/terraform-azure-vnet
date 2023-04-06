@@ -132,6 +132,8 @@ module "virtual-network" {
 | network\_security\_group\_id | Id of network security group for which flow are to be calculated | `string` | `null` | no |
 | repository | Terraform current module repo | `string` | `"https://github.com/clouddrove/terraform-azure-virtual-network"` | no |
 | resource\_group\_name | The name of the resource group in which to create the virtual network. Changing this forces a new resource to be created. | `string` | `""` | no |
+| retention\_policy\_days | The number of days to retain flow log records. | `number` | `30` | no |
+| retention\_policy\_enabled | Boolean flag to enable/disable retention. | `bool` | `true` | no |
 | storage\_account\_id | Id of storage account. | `string` | `null` | no |
 | tags | Additional tags (e.g. map(`BusinessUnit`,`XYZ`). | `map(any)` | `{}` | no |
 | workspace\_id | Log analytics workspace id | `string` | `null` | no |
