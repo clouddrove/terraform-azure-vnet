@@ -14,7 +14,7 @@ module "resource_group" {
 
 module "storage" {
   source                    = "clouddrove/storage/azure"
-  version                   = "1.0.6"
+  version                   = "1.0.7"
   default_enabled           = true
   resource_group_name       = module.resource_group.resource_group_name
   location                  = module.resource_group.resource_group_location
