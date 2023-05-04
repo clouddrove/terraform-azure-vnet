@@ -10,18 +10,10 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "terraform" # See documentation for possible values
-    directory: "example/basic" # Location of package manifests
+    directory: "_example/default" # Location of package manifests
     schedule:
       interval: "weekly"
   - package-ecosystem: "terraform" # See documentation for possible values
-    directory: "example/queue" # Location of package manifests
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "terraform" # See documentation for possible values
-    directory: "example/topic" # Location of package manifests
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "terraform" # See documentation for possible values
-    directory: "example/topic_with_subscriptions" # Location of package manifests
+    directory: "_example/vnet-with-flow-logs" # Location of package manifests
     schedule:
       interval: "weekly"
