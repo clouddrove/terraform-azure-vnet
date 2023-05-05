@@ -27,8 +27,8 @@ module "log-analytics" {
 
 
 module "storage" {
-  source               = "clouddrove/storage/azure"
-  version              = "1.0.8"
+  source  = "clouddrove/storage/azure"
+  version = "1.0.8"
 
   name                 = "app"
   environment          = "test"
