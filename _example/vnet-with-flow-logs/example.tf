@@ -12,32 +12,32 @@ module "resource_group" {
   location    = "North Europe"
 }
 
+
+module "log-analytics" {
+  source                           = "clouddrove/log-analytics/azure"
+  version                          = "1.0.1"
+  name                             = "app"
+  environment                      = "test"
+  label_order                      = ["name", "environment"]
+  create_log_analytics_workspace   = true
+  log_analytics_workspace_sku      = "PerGB2018"
+  resource_group_name              = module.resource_group.resource_group_name
+  log_analytics_workspace_location = module.resource_group.resource_group_location
+}
+
+
 module "storage" {
-  source                    = "clouddrove/storage/azure"
-  version                   = "1.0.7"
-  default_enabled           = true
-  resource_group_name       = module.resource_group.resource_group_name
-  location                  = module.resource_group.resource_group_location
-  storage_account_name      = "storagestarac"
-  account_kind              = "StorageV2"
-  account_tier              = "Standard"
-  account_replication_type  = "GRS"
-  enable_https_traffic_only = true
-  is_hns_enabled            = true
-  sftp_enabled              = true
-  versioning_enabled        = false
+  source               = "clouddrove/storage/azure"
+  version              = "1.0.8"
 
-  network_rules = [
-    {
-      default_action = "Deny"
-      ip_rules       = ["0.0.0.0/0"]
-      bypass         = ["AzureServices"]
-    }
-  ]
+  name                 = "app"
+  environment          = "test"
+  label_order          = ["name", "environment"]
+  default_enabled      = true
+  resource_group_name  = module.resource_group.resource_group_name
+  location             = module.resource_group.resource_group_location
+  storage_account_name = "stordtyre236"
 
-
-  ##   Storage Account Threat Protection
-  enable_advanced_threat_protection = false
 
   ##   Storage Container
   containers_list = [
@@ -56,35 +56,13 @@ module "storage" {
   queues = ["queue1"]
 
   management_policy_enable = true
-  management_policy = [
-    {
-      prefix_match               = ["app-test/folder_path"]
-      tier_to_cool_after_days    = 0
-      tier_to_archive_after_days = 50
-      delete_after_days          = 100
-      snapshot_delete_after_days = 30
-    }
-  ]
 
   #enable private endpoint
-  # enabled_private_endpoint = true
-  # subnet_id = ""
-  # virtual_network_id = ""
+  virtual_network_id = module.vnet.vnet_id[0]
+  subnet_id          = module.subnet.default_subnet_id[0]
 
-}
+  log_analytics_workspace_id = module.log-analytics.workspace_id
 
-
-
-module "log-analytics" {
-  source                           = "clouddrove/log-analytics/azure"
-  version                          = "1.0.1"
-  name                             = "app"
-  environment                      = "test"
-  label_order                      = ["name", "environment"]
-  create_log_analytics_workspace   = true
-  log_analytics_workspace_sku      = "PerGB2018"
-  resource_group_name              = module.resource_group.resource_group_name
-  log_analytics_workspace_location = module.resource_group.resource_group_location
 }
 
 module "vnet" {
@@ -92,7 +70,6 @@ module "vnet" {
 
   name                = "app"
   environment         = "test"
-  label_order         = ["name", "environment"]
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.resource_group_location
   address_space       = "10.0.0.0/16"
