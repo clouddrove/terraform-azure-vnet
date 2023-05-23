@@ -6,9 +6,9 @@ module "resource_group" {
   source  = "clouddrove/resource-group/azure"
   version = "1.0.2"
 
-  name        = "app-13"
+  name        = "app"
   environment = "test"
-  label_order = ["environment", "name", ]
+  label_order = ["name", "environment"]
   location    = "North Europe"
 }
 
@@ -32,7 +32,6 @@ module "storage" {
 
   name                 = "app"
   environment          = "test"
-  label_order          = ["name", "environment"]
   default_enabled      = true
   resource_group_name  = module.resource_group.resource_group_name
   location             = module.resource_group.resource_group_location
@@ -90,7 +89,6 @@ module "subnet" {
 
   name                 = "app"
   environment          = "test"
-  label_order          = ["name", "environment"]
   resource_group_name  = module.resource_group.resource_group_name
   location             = module.resource_group.resource_group_location
   virtual_network_name = join("", module.vnet.vnet_name)
@@ -107,7 +105,6 @@ module "security_group" {
   ## Tags
   name        = "app"
   environment = "test"
-  label_order = ["name", "environment"]
 
   ## Security Group
   resource_group_name     = module.resource_group.resource_group_name
