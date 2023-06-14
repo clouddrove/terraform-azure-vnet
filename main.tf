@@ -42,34 +42,9 @@ resource "azurerm_network_ddos_protection_plan" "example" {
   tags                = module.labels.tags
 }
 
-resource "azurerm_network_watcher" "test" {
+resource "azurerm_network_watcher" "flow_log_nw" {
   count               = var.enable_network_watcher ? 1 : 0
   name                = format("%s-network_watcher", module.labels.id)
   location            = var.location
   resource_group_name = var.resource_group_name
-}
-
-
-resource "azurerm_network_watcher_flow_log" "test" {
-  count                = var.enable_flow_logs ? 1 : 0
-  network_watcher_name = join("", azurerm_network_watcher.test.*.name)
-  resource_group_name  = var.resource_group_name
-  name                 = format("%s-flow_logs", module.labels.id)
-
-  network_security_group_id = var.network_security_group_id
-  storage_account_id        = var.storage_account_id
-  enabled                   = true
-
-  retention_policy {
-    enabled = var.retention_policy_enabled
-    days    = var.retention_policy_days
-  }
-
-  traffic_analytics {
-    enabled               = var.enable_traffic_analytics
-    workspace_id          = var.workspace_id
-    workspace_region      = var.location
-    workspace_resource_id = var.workspace_resource_id
-    interval_in_minutes   = 10
-  }
 }
