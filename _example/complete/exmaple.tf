@@ -25,7 +25,7 @@ module "resource_group" {
 ## Virtual Network module call.
 ##-----------------------------------------------------------------------------
 module "vnet" {
-  source                 = "../"
+  source                 = "../../"
   name                   = local.name
   environment            = local.environment
   resource_group_name    = module.resource_group.resource_group_name
