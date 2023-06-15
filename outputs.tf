@@ -33,6 +33,6 @@ output "ddos_protection_plan_id" {
   description = "The ID of the DDoS Protection Plan"
 }
 output "network_watcher_id" {
-  value       = join("", azurerm_network_watcher.test.*.id)
+  value       = join("", azurerm_network_watcher.flow_log_nw.*.id)
   description = "The ID of the Network Watcher."
 }

@@ -30,7 +30,8 @@ jobs:
           - ${{ needs.versionExtract.outputs.minVersion }}
           - ${{ needs.versionExtract.outputs.maxVersion }}
         directory:
-          - _example/
+          - _example/basic/
+          - _example/complete/
 
     steps:
       - name: Checkout
