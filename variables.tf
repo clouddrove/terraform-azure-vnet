@@ -106,11 +106,16 @@ variable "dns_servers" {
   description = "The DNS servers to be used with vNet."
 }
 
-
 variable "enable_ddos_pp" {
   type        = bool
   default     = false
   description = "Flag to control the resource creation"
+}
+
+variable "existing_ddos_pp" {
+  type        = string
+  default     = null
+  description = "ID of an existing DDOPS plan defined in the same subscription"
 }
 
 variable "enable_network_watcher" {
@@ -154,6 +159,7 @@ variable "enable_traffic_analytics" {
   default     = true
   description = "Flag to control creation of traffic analytics."
 }
+
 variable "retention_policy_enabled" {
   type        = bool
   default     = true
