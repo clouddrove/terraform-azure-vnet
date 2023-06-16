@@ -36,3 +36,8 @@ output "network_watcher_id" {
   value       = join("", azurerm_network_watcher.flow_log_nw.*.id)
   description = "The ID of the Network Watcher."
 }
+
+output "network_watcher_name" {
+  value       = join("", azurerm_network_watcher.flow_log_nw.*.name)
+  description = "The name of Network Watcher deployed."
+}
