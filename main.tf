@@ -1,18 +1,16 @@
-##----------------------------------------------------------------------------- 
-## Locals declaration for determining the id of ddos protection plan.    
+##-----------------------------------------------------------------------------
+## Locals declaration for determining the id of ddos protection plan.
 ##-----------------------------------------------------------------------------
 locals {
   ddos_pp_id = var.enable_ddos_pp && var.existing_ddos_pp != null ? var.existing_ddos_pp : var.enable_ddos_pp && var.existing_ddos_pp == null ? azurerm_network_ddos_protection_plan.example[0].id : null
 }
 
-##----------------------------------------------------------------------------- 
-## Labels module callled that will be used for naming and tags.   
+##-----------------------------------------------------------------------------
+## Labels module callled that will be used for naming and tags.
 ##-----------------------------------------------------------------------------
 module "labels" {
-
-  source  = "clouddrove/labels/azure"
-  version = "1.0.0"
-
+  source      = "clouddrove/labels/azure"
+  version     = "1.0.0"
   name        = var.name
   environment = var.environment
   managedby   = var.managedby
@@ -20,8 +18,8 @@ module "labels" {
   repository  = var.repository
 }
 
-##----------------------------------------------------------------------------- 
-## Below resource will deploy virtual network in your azure environment.    
+##-----------------------------------------------------------------------------
+## Below resource will deploy virtual network in your azure environment.
 ##-----------------------------------------------------------------------------
 resource "azurerm_virtual_network" "vnet" {
   count                   = var.enable == true ? 1 : 0
@@ -43,8 +41,8 @@ resource "azurerm_virtual_network" "vnet" {
   tags = module.labels.tags
 }
 
-##----------------------------------------------------------------------------- 
-## Below resource will deploy ddos protection plan for virtual network.   
+##-----------------------------------------------------------------------------
+## Below resource will deploy ddos protection plan for virtual network.
 ##-----------------------------------------------------------------------------
 resource "azurerm_network_ddos_protection_plan" "example" {
   count               = var.enable_ddos_pp && var.enable == true ? 1 : 0
@@ -56,8 +54,8 @@ resource "azurerm_network_ddos_protection_plan" "example" {
 
 ##-----------------------------------------------------------------------------
 ## Below resource will deploy network watcher resource group in azure.
-## To be deployed when flow logs for network security group is to be tracked. 
-## By default azure deploys network wather on its own, but if in azure infrastructure deployment you need network watcher with specific name than set 'enable_network_watcher' variable to true. 
+## To be deployed when flow logs for network security group is to be tracked.
+## By default azure deploys network wather on its own, but if in azure infrastructure deployment you need network watcher with specific name than set 'enable_network_watcher' variable to true.
 ##-----------------------------------------------------------------------------
 resource "azurerm_network_watcher" "flow_log_nw" {
   count               = var.enable && var.enable_network_watcher ? 1 : 0
