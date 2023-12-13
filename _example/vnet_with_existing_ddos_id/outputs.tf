@@ -28,7 +28,7 @@ output "vnet_rg_name" {
   description = "The name of the resource group in which to create the virtual network. Changing this forces a new resource to be created."
 }
 
-output "ddos_protection_plan_id" {
-  value       = module.vnet.ddos_protection_plan_id
-  description = "The ID of the DDoS Protection Plan"
+output "ddos_plan_id" {
+  value       = module.vnet.ddos_existing_plan_id
+  description = "The ID of the Exiting DDoS Protection Plan"
 }

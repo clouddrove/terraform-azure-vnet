@@ -32,6 +32,7 @@ output "ddos_protection_plan_id" {
   value       = join("", azurerm_network_ddos_protection_plan.example[*].id)
   description = "The ID of the DDoS Protection Plan"
 }
+
 output "network_watcher_id" {
   value       = join("", azurerm_network_watcher.flow_log_nw[*].id)
   description = "The ID of the Network Watcher."
@@ -40,4 +41,9 @@ output "network_watcher_id" {
 output "network_watcher_name" {
   value       = join("", azurerm_network_watcher.flow_log_nw[*].name)
   description = "The name of Network Watcher deployed."
+}
+
+output "ddos_existing_plan_id" {
+  value       = azurerm_virtual_network.vnet[*].ddos_protection_plan
+  description = "The ID of the DDoS Protection Plan"
 }

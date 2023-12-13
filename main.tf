@@ -2,7 +2,7 @@
 ## Locals declaration for determining the id of ddos protection plan.
 ##-----------------------------------------------------------------------------
 locals {
-  ddos_pp_id = var.enable_ddos_pp && var.existing_ddos_pp != null ? var.existing_ddos_pp : var.enable_ddos_pp && var.existing_ddos_pp == null ? azurerm_network_ddos_protection_plan.example[0].id : null
+  ddos_pp_id = var.enable_ddos_pp == false && var.existing_ddos_pp != null ? var.existing_ddos_pp : var.enable_ddos_pp && var.existing_ddos_pp == null ? azurerm_network_ddos_protection_plan.example[0].id : null
 }
 
 ##-----------------------------------------------------------------------------
@@ -24,13 +24,27 @@ module "labels" {
 resource "azurerm_virtual_network" "vnet" {
   count                   = var.enable == true ? 1 : 0
   name                    = format("%s-vnet", module.labels.id)
-  resource_group_name     = var.resource_group_name
-  location                = var.location
   address_space           = length(var.address_spaces) == 0 ? [var.address_space] : var.address_spaces
+  resource_group_name     = var.resource_group_name
+  flow_timeout_in_minutes = var.flow_timeout_in_minutes
+  location                = var.location
   dns_servers             = var.dns_servers
   bgp_community           = var.bgp_community
   edge_zone               = var.edge_zone
-  flow_timeout_in_minutes = var.flow_timeout_in_minutes
+
+  encryption {
+    enforcement = var.enforcement
+  }
+
+  dynamic "subnet" {
+    for_each = var.subnets == null ? [] : var.subnets
+    content {
+      name           = subnets.value.name
+      address_prefix = subnets.value.address_prefix
+      security_group = subnets.security_group
+    }
+  }
+
   dynamic "ddos_protection_plan" {
     for_each = local.ddos_pp_id != null ? ["ddos_protection_plan"] : []
     content {

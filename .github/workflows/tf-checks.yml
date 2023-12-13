@@ -5,12 +5,17 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  example-basic:
+  basic-example:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.0.8
     with:
       working_directory: './_example/basic/'
 
-  example-complete:
+  complete-example:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.0.8
     with:
       working_directory: './_example/complete/'
+
+  vnet_with_existing_ddos_id-example:
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.0.8
+    with:
+      working_directory: './_example/vnet_with_existing_ddos_id/'

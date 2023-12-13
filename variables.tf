@@ -105,3 +105,19 @@ variable "enable_network_watcher" {
   default     = false
   description = "Flag to control creation of network watcher."
 }
+
+variable "enforcement" {
+  type        = string
+  default     = "AllowUnencrypted"
+  description = "Specifies if the encrypted Virtual Network allows VM that does not support encryption. Possible values are DropUnencrypted and AllowUnencrypted."
+}
+
+variable "subnets" {
+  type = list(object({
+    name           = string
+    address_prefix = string
+    security_group = list(any)
+  }))
+  default     = null
+  description = "Can be specified multiple times to define multiple subnets. Each subnet block supports fields documented below."
+}
