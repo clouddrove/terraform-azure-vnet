@@ -28,7 +28,7 @@ module "vnet" {
   environment            = local.environment
   resource_group_name    = module.resource_group.resource_group_name
   location               = module.resource_group.resource_group_location
-  address_space          = "10.0.0.0/16"
-  existing_ddos_pp       = "/subscriptions/068245d4-3c94-42fe-9c4d-9e5e1cabc60c/resourceGroups/"
+  address_spaces         = ["10.0.0.0/16"]
+  existing_ddos_pp       = "/subscriptions/c/ddosProtectionPlans/vnetddos"
   enable_network_watcher = false # To be set true when network security group flow logs are to be tracked and network watcher with specific name is to be deployed.
 }

@@ -24,7 +24,7 @@ module "labels" {
 resource "azurerm_virtual_network" "vnet" {
   count                   = var.enable == true ? 1 : 0
   name                    = format("%s-vnet", module.labels.id)
-  address_space           = length(var.address_spaces) == 0 ? [var.address_space] : var.address_spaces
+  address_space           = var.address_spaces
   resource_group_name     = var.resource_group_name
   flow_timeout_in_minutes = var.flow_timeout_in_minutes
   location                = var.location
@@ -34,15 +34,6 @@ resource "azurerm_virtual_network" "vnet" {
 
   encryption {
     enforcement = var.enforcement
-  }
-
-  dynamic "subnet" {
-    for_each = var.subnets == null ? [] : var.subnets
-    content {
-      name           = subnets.value.name
-      address_prefix = subnets.value.address_prefix
-      security_group = subnets.security_group
-    }
   }
 
   dynamic "ddos_protection_plan" {

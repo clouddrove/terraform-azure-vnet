@@ -2,7 +2,7 @@
 #Description : Terraform label module variables.
 variable "name" {
   type        = string
-  default     = ""
+  default     = null
   description = "Name  (e.g. `app` or `cluster`)."
 }
 
@@ -20,7 +20,7 @@ variable "repository" {
 
 variable "environment" {
   type        = string
-  default     = ""
+  default     = null
   description = "Environment (e.g. `prod`, `dev`, `staging`)."
 }
 
@@ -44,20 +44,14 @@ variable "enable" {
 
 variable "resource_group_name" {
   type        = string
-  default     = ""
+  default     = null
   description = "The name of the resource group in which to create the virtual network. Changing this forces a new resource to be created."
 }
 
 variable "location" {
   type        = string
-  default     = ""
+  default     = null
   description = "The location/region where the virtual network is created. Changing this forces a new resource to be created."
-}
-
-variable "address_space" {
-  type        = string
-  default     = ""
-  description = "The address space that is used by the virtual network."
 }
 
 variable "address_spaces" {
@@ -112,12 +106,4 @@ variable "enforcement" {
   description = "Specifies if the encrypted Virtual Network allows VM that does not support encryption. Possible values are DropUnencrypted and AllowUnencrypted."
 }
 
-variable "subnets" {
-  type = list(object({
-    name           = string
-    address_prefix = string
-    security_group = list(any)
-  }))
-  default     = null
-  description = "Can be specified multiple times to define multiple subnets. Each subnet block supports fields documented below."
-}
+
