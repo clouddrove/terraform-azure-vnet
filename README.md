@@ -4,7 +4,7 @@
 
 
 <h1 align="center">
-    Terraform AZURE VIRTUAL-NETWORK
+    Terraform AZURE VIRTUAL NETWORK
 </h1>
 
 <p align="center" style="font-size: 1.2rem;"> 
