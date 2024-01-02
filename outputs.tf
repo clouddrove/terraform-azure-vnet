@@ -29,17 +29,17 @@ output "vnet_rg_name" {
 }
 
 output "ddos_protection_plan_id" {
-  value = var.enable_ddos_pp && var.enable ? azurerm_network_ddos_protection_plan.example[0].id : null
+  value       = var.enable_ddos_pp && var.enable ? azurerm_network_ddos_protection_plan.example[0].id : null
   description = "The ID of the DDoS Protection Plan"
 }
 
 output "network_watcher_id" {
-  value = var.enable && var.enable_network_watcher ? azurerm_network_watcher.flow_log_nw[0].id : null
+  value       = var.enable && var.enable_network_watcher ? azurerm_network_watcher.flow_log_nw[0].id : null
   description = "The ID of the Network Watcher."
 }
 
 output "network_watcher_name" {
-  value = var.enable && var.enable_network_watcher ? azurerm_network_watcher.flow_log_nw[0].name : null
+  value       = var.enable && var.enable_network_watcher ? azurerm_network_watcher.flow_log_nw[0].name : null
   description = "The name of Network Watcher deployed."
 }
 
