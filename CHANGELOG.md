@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.4] - 2024-01-02
+### :sparkles: New Features
+- [`f49103b`](https://github.com/clouddrove/terraform-azure-vnet/commit/f49103bb63b9654adc3e1cfe20166f85398c04d7) - add github/workflows *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+- [`53ca73e`](https://github.com/clouddrove/terraform-azure-vnet/commit/53ca73e2352912edaa37649d4fa837cea050e97e) - add new example *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+- [`6b44ef5`](https://github.com/clouddrove/terraform-azure-vnet/commit/6b44ef592e96d923a284b6ec9e10c934f0f02485) - add automerge.yml *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+
+### :bug: Bug Fixes
+- [`0a5c65c`](https://github.com/clouddrove/terraform-azure-vnet/commit/0a5c65c66bfe7a0a4383c4fc698c7d57c07fb42c) - update code and add tf latest version *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+- [`05cc023`](https://github.com/clouddrove/terraform-azure-vnet/commit/05cc023a7c81cc44c7b64db1575645488f62624e) - removed multiple variables in main.tf file *(commit by [@pranaydeokar](https://github.com/pranaydeokar))*
+- [`ea07736`](https://github.com/clouddrove/terraform-azure-vnet/commit/ea07736bae9820abdc0ee857d4aa39d83cf8443f) - update outputs *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+- [`6dedfc2`](https://github.com/clouddrove/terraform-azure-vnet/commit/6dedfc2063b4e8b5dbea3e6987f6b84ddf68b78c) - update outputs *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+- [`09cf297`](https://github.com/clouddrove/terraform-azure-vnet/commit/09cf297835135bb984fb99fc4f60f67c3df03c20) - fixed tf checks issue *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+- [`3c3bdd6`](https://github.com/clouddrove/terraform-azure-vnet/commit/3c3bdd6df45622b741b5e697708c0b8b2de25513) - update github/workflows version *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+- [`57c4aeb`](https://github.com/clouddrove/terraform-azure-vnet/commit/57c4aeb3b73e375b1b82b37e1dbc63266a03fe60) - update readme yaml *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
+
+
 ## [1.0.3] - 2023-06-15
 ### :sparkles: New Features
 - [`10c5528`](https://github.com/clouddrove/terraform-azure-vnet/commit/10c552803437fdf5847942ff950ebfc031beabc6) - tfsec added for module scan. *(commit by [@d4kverma](https://github.com/d4kverma))*
@@ -36,3 +52,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.1]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.0...1.0.1
 
 [1.0.3]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.2...1.0.3
+[1.0.4]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.3...1.0.4
