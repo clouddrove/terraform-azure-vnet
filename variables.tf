@@ -2,13 +2,13 @@
 #Description : Terraform label module variables.
 variable "name" {
   type        = string
-  default     = ""
+  default     = null
   description = "Name  (e.g. `app` or `cluster`)."
 }
 
 variable "repository" {
   type        = string
-  default     = "https://github.com/clouddrove/terraform-azure-virtual-network"
+  default     = "https://github.com/clouddrove/terraform-azure-vnet"
   description = "Terraform current module repo"
 
   validation {
@@ -20,7 +20,7 @@ variable "repository" {
 
 variable "environment" {
   type        = string
-  default     = ""
+  default     = null
   description = "Environment (e.g. `prod`, `dev`, `staging`)."
 }
 
@@ -28,24 +28,6 @@ variable "label_order" {
   type        = list(any)
   default     = ["name", "environment"]
   description = "Label order, e.g. `name`,`application`."
-}
-
-variable "attributes" {
-  type        = list(any)
-  default     = []
-  description = "Additional attributes (e.g. `1`)."
-}
-
-variable "delimiter" {
-  type        = string
-  default     = "-"
-  description = "Delimiter to be used between `organization`, `environment`, `name` and `attributes`."
-}
-
-variable "tags" {
-  type        = map(any)
-  default     = {}
-  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)."
 }
 
 variable "managedby" {
@@ -62,20 +44,14 @@ variable "enable" {
 
 variable "resource_group_name" {
   type        = string
-  default     = ""
+  default     = null
   description = "The name of the resource group in which to create the virtual network. Changing this forces a new resource to be created."
 }
 
 variable "location" {
   type        = string
-  default     = ""
+  default     = null
   description = "The location/region where the virtual network is created. Changing this forces a new resource to be created."
-}
-
-variable "address_space" {
-  type        = string
-  default     = ""
-  description = "The address space that is used by the virtual network."
 }
 
 variable "address_spaces" {
@@ -124,49 +100,10 @@ variable "enable_network_watcher" {
   description = "Flag to control creation of network watcher."
 }
 
-variable "network_security_group_id" {
+variable "enforcement" {
   type        = string
-  default     = null
-  description = "Id of network security group for which flow are to be calculated"
+  default     = "AllowUnencrypted"
+  description = "Specifies if the encrypted Virtual Network allows VM that does not support encryption. Possible values are DropUnencrypted and AllowUnencrypted."
 }
 
-variable "storage_account_id" {
-  type        = string
-  default     = null
-  description = "Id of storage account."
-}
 
-variable "workspace_id" {
-  type        = string
-  default     = null
-  description = "Log analytics workspace id"
-}
-
-variable "workspace_resource_id" {
-  type        = string
-  default     = null
-  description = "Resource id of workspace"
-}
-
-variable "enable_flow_logs" {
-  type        = bool
-  default     = false
-  description = "Flag to control creation of flow logs for nsg."
-}
-
-variable "enable_traffic_analytics" {
-  type        = bool
-  default     = true
-  description = "Flag to control creation of traffic analytics."
-}
-
-variable "retention_policy_enabled" {
-  type        = bool
-  default     = true
-  description = "Boolean flag to enable/disable retention."
-}
-variable "retention_policy_days" {
-  type        = number
-  default     = 30
-  description = "The number of days to retain flow log records."
-}
