@@ -4,9 +4,8 @@
 # Run `make readme` to rebuild the `README.md`
 #
 
-
 # Name of this project
-name: Terraform AZURE VIRTUAL NETWORK
+name: Terraform AZURE VNET
 
 # License of this project
 license: "APACHE"
