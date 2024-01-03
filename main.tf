@@ -32,8 +32,11 @@ resource "azurerm_virtual_network" "vnet" {
   bgp_community           = var.bgp_community
   edge_zone               = var.edge_zone
 
-  encryption {
-    enforcement = var.enforcement
+  dynamic "encryption" {
+    for_each = var.enforcement != null ? ["encryption"] : []
+    content {
+      enforcement = var.enforcement
+    }
   }
 
   dynamic "ddos_protection_plan" {

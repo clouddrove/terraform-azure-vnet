@@ -102,7 +102,7 @@ variable "enable_network_watcher" {
 
 variable "enforcement" {
   type        = string
-  default     = "AllowUnencrypted"
+  default     = null
   description = "Specifies if the encrypted Virtual Network allows VM that does not support encryption. Possible values are DropUnencrypted and AllowUnencrypted."
 }
 
