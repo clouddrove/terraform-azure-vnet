@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2024-01-03
+### :memo: Documentation Changes
+- [`17abb3c`](https://github.com/clouddrove/terraform-azure-vnet/commit/17abb3c6a0097b2ef29cd2657ebd39e5079052ef) - update CHANGELOG.md for 1.0.4 *(commit by [@clouddrove-ci](https://github.com/clouddrove-ci))*
+
+
 ## [1.0.4] - 2024-01-02
 ### :sparkles: New Features
 - [`f49103b`](https://github.com/clouddrove/terraform-azure-vnet/commit/f49103bb63b9654adc3e1cfe20166f85398c04d7) - add github/workflows *(commit by [@mamrajyadav](https://github.com/mamrajyadav))*
@@ -53,3 +58,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [1.0.3]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.2...1.0.3
 [1.0.4]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.3...1.0.4
+[1.4.0]: https://github.com/clouddrove/terraform-azure-vnet/compare/1.0.4...1.4.0
