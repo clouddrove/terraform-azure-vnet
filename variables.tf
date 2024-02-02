@@ -106,9 +106,9 @@ variable "enforcement" {
   description = "Specifies if the encrypted Virtual Network allows VM that does not support encryption. Possible values are DropUnencrypted and AllowUnencrypted."
 }
 variable "extra_tags" {
-type = map(string)
-default = null
-description = "Variable to pass extra tags."
+  type        = map(sting)
+  default     = null
+  description = "Variable to pass extra tags."
 }
 
 
