@@ -36,6 +36,12 @@ variable "managedby" {
   description = "ManagedBy, eg 'CloudDrove'."
 }
 
+variable "extra_tags" {
+  type        = map(string)
+  default     = null
+  description = "Variable to pass extra tags."
+}
+
 variable "enable" {
   type        = bool
   default     = true
@@ -105,5 +111,6 @@ variable "enforcement" {
   default     = null
   description = "Specifies if the encrypted Virtual Network allows VM that does not support encryption. Possible values are DropUnencrypted and AllowUnencrypted."
 }
+
 
 
