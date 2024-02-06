@@ -71,4 +71,5 @@ resource "azurerm_network_watcher" "flow_log_nw" {
   name                = format("%s-network_watcher", module.labels.id)
   location            = var.location
   resource_group_name = var.resource_group_name
+  tags                = module.labels.tags
 }
