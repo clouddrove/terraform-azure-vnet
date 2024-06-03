@@ -6,16 +6,16 @@ on:
   workflow_dispatch:
 jobs:
   basic-example:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.4
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.5
     with:
       working_directory: './_example/basic/'
 
   complete-example:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.4
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.5
     with:
       working_directory: './_example/complete/'
 
   vnet_with_existing_ddos_id-example:
-    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.4
+    uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.5
     with:
       working_directory: './_example/vnet_with_existing_ddos_id/'
