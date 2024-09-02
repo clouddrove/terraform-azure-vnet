@@ -8,14 +8,14 @@ jobs:
   basic-example:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.7
     with:
-      working_directory: './_example/basic/'
+      working_directory: './examples/basic/'
 
   complete-example:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.7
     with:
-      working_directory: './_example/complete/'
+      working_directory: './examples/complete/'
 
   vnet_with_existing_ddos_id-example:
     uses: clouddrove/github-shared-workflows/.github/workflows/tf-checks.yml@1.2.7
     with:
-      working_directory: './_example/vnet_with_existing_ddos_id/'
+      working_directory: './examples/vnet_with_existing_ddos_id/'
