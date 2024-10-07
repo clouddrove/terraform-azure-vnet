@@ -35,4 +35,3 @@
 | vnet\_location | The location of the newly created vNet |
 | vnet\_name | The name of the newly created vNet |
 | vnet\_rg\_name | The name of the resource group in which to create the virtual network. Changing this forces a new resource to be created |
-
