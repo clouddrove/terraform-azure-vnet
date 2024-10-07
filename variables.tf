@@ -111,6 +111,3 @@ variable "enforcement" {
   default     = null
   description = "Specifies if the encrypted Virtual Network allows VM that does not support encryption. Possible values are DropUnencrypted and AllowUnencrypted."
 }
-
-
-
