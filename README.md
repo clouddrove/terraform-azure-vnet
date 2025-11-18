@@ -2,11 +2,11 @@
 
 This Terraform module is no longer maintained under the **CloudDrove** organization:
 
-**Old repository:** https://github.com/clouddrove/terraform-azure-resource-group
+**Old repository:** https://github.com/clouddrove/terraform-azure-vnet
 
 The module has been permanently migrated to the **terraform-az-modules** organization:
 
-**➡️ New home:** https://github.com/terraform-az-modules/terraform-azurerm-resource-group
+**➡️ New home:** https://github.com/terraform-az-modules/terraform-azurerm-vnet
 
 ---
 
@@ -28,14 +28,14 @@ Simply update the `source` reference in your Terraform configuration.
 **Before (CloudDrove org):**
 ```hcl
 module "example" {
-   source      = "clouddrove/resource-group/azure"
+   source      = "clouddrove/vnet/azure"
 }
 ```
 
 **After (Terraform-az-modules org):**
 ```hcl
 module "example" {
-   source      = "terraform-az-modules/resource-group/azurerm"
+   source      = "terraform-az-modules/vnet/azurerm"
 }
 ```
 ## 📌 Issues, Discussions & Pull Requests
@@ -43,6 +43,6 @@ module "example" {
 Going forward:
 
 - 🚀 **All issues, feature requests, and pull requests must be created in the new repository:**
-  **https://github.com/terraform-az-modules/terraform-azurerm-resource-group**
+  **https://github.com/terraform-az-modules/terraform-azurerm-vnet**
 
 - 📚 This old **CloudDrove** repository is now **read-only**, retained only for historical reference.
